@@ -1,6 +1,3 @@
-require "net/http"
-require "uri"
-
 module Messy
   class Emailer
     def self.send(email)
@@ -20,17 +17,7 @@ module Messy
         end
       end
 
-      url = URI.parse(Messy.api_url + '/send_email')
-      req = Net::HTTP::Post.new(url.path)
-      req.basic_auth 'admin', 'admin'
-
-      p data
-
-      req.set_form_data(data)
-
-      res = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
-
-      p res.body
+      Messy.send_api_request('send_email', data)
     end
   end
 end
