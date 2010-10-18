@@ -17,6 +17,10 @@ module Messy
         end
       end
 
+      if email.headers.length > 0
+        email.headers.each { |name, value| data["headers[#{name}]"] = value }
+      end
+
       Messy.send_api_request('send_email', data)
     end
   end
