@@ -1,8 +1,8 @@
-#require "messy/emailer"
 
 module Messy
   extend self
   autoload :Emailer, 'messy/emailer'
+  autoload :Email,   'messy/email'
 
   def api_url=(url)
     @api_url = url
