@@ -25,20 +25,35 @@ module Messy
     @api_token or raise "API token is not specified"
   end
 
-  def send_api_request(method, params)
-    url = URI.parse(Messy.api_url + '/' + method)
-    req = Net::HTTP::Post.new(url.path)
+  def send_api_request(api_method, params, request_method = :get)
+    if request_method == :post
+      url = URI.parse(Messy.api_url + "/#{api_method}.json")
+      req = Net::HTTP::Post.new(url.path)
+      req.set_form_data(params)
+    else
+      url = URI.parse(Messy.api_url + "/#{api_method}.json?#{hash_to_url_params(params)}")
+      req = Net::HTTP::Get.new(url.path)
+    end
 
     # TODO
     req.basic_auth 'admin', 'admin'
-    req.set_form_data(params)
 
     res = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
     case res
     when Net::HTTPSuccess, Net::HTTPRedirection
-      return res.body
+      return ::ActiveSupport::JSON.decode(res.body)
     else
       raise Messy::APIException, res.error!
     end
   end
+
+  private
+
+    def hash_to_url_params(hash)
+      elements = []
+      hash.keys.size.times do |i|
+        elements << "#{hash.keys[i]}=#{hash.values[i]}"
+      end
+      elements.join('&')
+    end
 end

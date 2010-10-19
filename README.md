@@ -29,3 +29,11 @@ Save the file and restart your application.
 
     @email.attachments << "/tmp/example/file.pdf"
     Messy::Emailer.send(email)
+
+## Fetching incoming emails
+
+    Messy::Emailer.fetch_incoming_emails(last_id)
+
+## Fetching outgoing errors
+
+    Messy::Emailer.fetch_outgoing_errors(last_id)

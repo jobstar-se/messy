@@ -20,4 +20,12 @@ describe Messy::Emailer do
 
     Messy::Emailer.send(@email)
   end
+
+  it "should get incoming emails" do
+    Messy::Emailer.fetch_incoming_emails(1).should be_an(Array)
+  end
+
+  it "should get outgoing errors" do
+    Messy::Emailer.fetch_outgoing_errors(1).should be_an(Array)
+  end
 end
