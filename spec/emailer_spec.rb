@@ -8,7 +8,7 @@ describe Messy::Emailer do
     @email.subject    = "Hi there"
     @email.body       = "Just a test email"
     @email.recipients = "piotr.chmolowski@polcode.com"
-    @email.from       = "Jobstar <jobstar@example.com>"
+    @email.from       = "jobstar@example.com"
   end
 
   it "should send an email" do

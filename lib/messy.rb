@@ -35,7 +35,7 @@ module Messy
       req = Net::HTTP::Get.new(url.path)
     end
 
-    # TODO
+    # TODO: replace with tokens
     req.basic_auth 'admin', 'admin'
 
     res = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
