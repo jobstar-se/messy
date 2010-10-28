@@ -12,7 +12,8 @@ describe Messy::Emailer do
   end
 
   it "should send an email" do
-    Messy::Emailer.send(@email)
+    result = Messy::Emailer.send(@email)
+    result.should be_a(Hash)
   end
 
   it "should send an email with an attachment" do
