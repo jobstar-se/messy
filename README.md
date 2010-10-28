@@ -27,7 +27,7 @@ Save the file and restart your application.
 
 ## Sending an email with attachments
 
-    @email.attachments << "/tmp/example/file.pdf"
+    @email.attachments["file.pdf"] = File.read("/tmp/example/file.pdf")
     Messy::Emailer.send(email)
 
 ## Fetching incoming emails
