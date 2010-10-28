@@ -13,7 +13,8 @@ module Messy
         :subject    => email.subject,
         :body       => email.body,
         :recipients => email.recipients,
-        :from       => email.from
+        :from       => email.from,
+        :bcc_sender => email.bcc_sender || false
       }
 
       if email.attachments.length > 0
