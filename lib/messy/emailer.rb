@@ -17,10 +17,8 @@ module Messy
       }
 
       if email.attachments.length > 0
-        email.attachments.each do |file|
-          filename = File.basename(file)
-          contents = File.read(file)
-
+        email.attachments.each do |filename, contents|
+          filename = File.basename(filename)
           data["attachments[#{filename}]"] = [contents].pack("m")
         end
       end

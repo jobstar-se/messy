@@ -3,7 +3,7 @@ module Messy
     attr_accessor :subject, :body, :recipients, :from
 
     def attachments
-      @attachments ||= []
+      @attachments ||= {}
     end
 
     def headers

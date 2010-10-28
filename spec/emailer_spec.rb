@@ -17,7 +17,7 @@ describe Messy::Emailer do
   end
 
   it "should send an email with an attachment" do
-    @email.attachments << File.dirname(__FILE__) + "/fixtures/sample_attachment.pdf"
+    @email.attachments["sample_attachment.pdf"] = File.read(File.dirname(__FILE__) + "/fixtures/sample_attachment.pdf")
 
     Messy::Emailer.send(@email)
   end
