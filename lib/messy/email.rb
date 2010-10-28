@@ -1,6 +1,6 @@
 module Messy
   class Email
-    attr_accessor :subject, :body, :recipients, :from, :send_me_copy
+    attr_accessor :subject, :body, :recipients, :from, :bcc_sender
 
     def attachments
       @attachments ||= {}
