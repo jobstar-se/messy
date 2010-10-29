@@ -3,6 +3,7 @@ require "uri"
 
 module Messy
   class APIException < StandardError; end
+  class InvalidData  < APIException;  end
 
   extend self
 
@@ -42,9 +43,11 @@ module Messy
     case res
     when Net::HTTPSuccess, Net::HTTPRedirection
       return ::ActiveSupport::JSON.decode(res.body)
-    else
-      raise Messy::APIException, res.error!
+    when Net::HTTPClientError
+      raise Messy::InvalidData, res.body if res.code == "422" # unprocessable entity
     end
+
+    raise Messy::APIException, res.error!
   end
 
   private

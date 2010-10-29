@@ -29,4 +29,28 @@ describe Messy::Emailer do
   it "should get outgoing errors" do
     Messy::Emailer.fetch_outgoing_errors(1).should be_an(Array)
   end
+
+  it "should return errors when trying to send an email without sender address" do
+    @email.from = nil
+
+    begin
+      Messy::Emailer.send(@email)
+    rescue Messy::InvalidData => e
+      errors = ActiveSupport::JSON.decode(e.to_s)
+      errors.should be_a(Hash)
+      errors["from"].should == "from is required"
+    end
+  end
+
+  it "should return errors when trying to send an email without recipient address" do
+    @email.recipients = nil
+
+    begin
+      Messy::Emailer.send(@email)
+    rescue Messy::InvalidData => e
+      errors = ActiveSupport::JSON.decode(e.to_s)
+      errors.should be_a(Hash)
+      errors["recipients"].should == "recipients is required"
+    end
+  end
 end

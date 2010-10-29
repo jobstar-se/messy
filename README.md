@@ -37,3 +37,12 @@ Save the file and restart your application.
 ## Fetching outgoing errors
 
     Messy::Emailer.fetch_outgoing_errors(last_id)
+
+## Handling exceptions
+
+    begin
+      Messy::Emailer.send(@email)
+    rescue Messy::InvalidData => e
+      errors = ActiveSupport::JSON.decode(e.to_s)
+      p errors
+    end
