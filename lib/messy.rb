@@ -9,6 +9,8 @@ module Messy
 
   autoload :Emailer, 'messy/emailer'
   autoload :Email,   'messy/email'
+  autoload :Posten,  'messy/posten'
+  autoload :Letter,  'messy/letter'
 
   def api_url=(url)
     @api_url = url
