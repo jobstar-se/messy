@@ -2,8 +2,8 @@ module Messy
   class Letter
     attr_accessor :address
 
-    def files
-      @files ||= {}
+    def attachments
+      @attachments ||= {}
     end
   end
 end

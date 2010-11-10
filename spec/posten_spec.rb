@@ -12,4 +12,11 @@ describe Messy::Posten do
     result = Messy::Posten.send(@letter)
     result.should be_a(Hash)
   end
+
+  it "should send a letter with an attachment" do
+    @letter.attachments["sample_attachment.pdf"] = File.read(File.dirname(__FILE__) + "/fixtures/sample_attachment.pdf")
+
+    result = Messy::Posten.send(@letter)
+    result.should be_a(Hash)
+  end
 end

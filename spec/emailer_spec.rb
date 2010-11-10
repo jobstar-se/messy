@@ -19,7 +19,8 @@ describe Messy::Emailer do
   it "should send an email with an attachment" do
     @email.attachments["sample_attachment.pdf"] = File.read(File.dirname(__FILE__) + "/fixtures/sample_attachment.pdf")
 
-    Messy::Emailer.send(@email)
+    result = Messy::Emailer.send(@email)
+    result.should be_a(Hash)
   end
 
   it "should get incoming emails" do
