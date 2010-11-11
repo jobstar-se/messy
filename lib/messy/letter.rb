@@ -1,9 +1,9 @@
 module Messy
   class Letter
-    attr_accessor :address
+    attr_accessor :address, :from_email
 
-    def attachments
-      @attachments ||= {}
+    def files
+      @files ||= {}
     end
   end
 end
