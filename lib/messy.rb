@@ -34,8 +34,10 @@ module Messy
       req = Net::HTTP::Post.new(url.path)
       req.set_form_data(params)
     else
-      url = URI.parse(Messy.api_url + "/#{api_method}.json?#{hash_to_url_params(params)}")
-      req = Net::HTTP::Get.new(url.path)
+      req_url = Messy.api_url + "/#{api_method}.json?#{hash_to_url_params(params)}"
+
+      url = URI.parse(req_url)
+      req = Net::HTTP::Get.new(req_url)
     end
 
     # TODO: replace with tokens
