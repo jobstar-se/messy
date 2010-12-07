@@ -16,6 +16,16 @@ describe Messy::Emailer do
     result.should be_a(Hash)
   end
 
+  it "should send an email without spam check" do
+    @email.check_spam = false
+    result = Messy::Emailer.send(@email)
+    result.should be_a(Hash)
+
+    result["state"].should == 3
+
+    @email.check_spam = true
+  end
+
   it "should send an email with an attachment" do
     @email.attachments["sample_attachment.pdf"] = File.read(File.dirname(__FILE__) + "/fixtures/sample_attachment.pdf")
 

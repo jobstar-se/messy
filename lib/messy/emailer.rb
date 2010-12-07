@@ -15,7 +15,8 @@ module Messy
         :user_body  => email.user_body,
         :recipients => email.recipients,
         :from       => email.from,
-        :bcc_sender => email.bcc_sender || false
+        :bcc_sender => email.bcc_sender || false,
+        :check_spam => email.check_spam
       }
 
       if email.attachments.length > 0
