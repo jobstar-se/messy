@@ -5,7 +5,8 @@ describe Messy::Posten do
     Messy.api_url = 'http://localhost:3000/api/v1'
 
     @letter = Messy::Letter.new
-    @letter.address = "Something"
+    @letter.address    = "Something"
+    @letter.from_email = "someone@example.com"
   end
 
   it "should send an letter" do
