@@ -13,6 +13,7 @@ module Messy
         :subject    => email.subject,
         :body       => email.body,
         :user_body  => email.user_body,
+        :plain_body => email.plain_body,
         :recipients => email.recipients,
         :from       => email.from,
         :bcc_sender => email.bcc_sender || false,
