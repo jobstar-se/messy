@@ -11,6 +11,7 @@ module Messy
   autoload :Email,   'messy/email'
   autoload :Posten,  'messy/posten'
   autoload :Letter,  'messy/letter'
+  autoload :ActionMailerDelivery, 'messy/action_mailer_delivery'
 
   def api_url=(url)
     @api_url = url
@@ -64,3 +65,5 @@ module Messy
       elements.join('&')
     end
 end
+  
+ActionMailer::Base.add_delivery_method :messy, Messy::ActionMailerDelivery
