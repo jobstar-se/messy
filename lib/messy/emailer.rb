@@ -9,26 +9,30 @@ module Messy
     end
 
     def self.send(email)
-      data = {
-        :subject    => email.subject,
-        :body       => email.body,
-        :user_body  => email.user_body,
-        :plain_body => email.plain_body,
-        :recipients => email.recipients,
-        :from       => email.from,
-        :bcc_sender => email.bcc_sender || false,
-        :check_spam => email.check_spam
-      }
-
-      if email.attachments.length > 0
-        email.attachments.each do |filename, contents|
-          filename = File.basename(filename)
-          data["attachments[#{filename}]"] = [contents].pack("m")
+      if email.is_a? Hash
+        data = email
+      else
+        data = {
+          :subject    => email.subject,
+          :body       => email.body,
+          :user_body  => email.user_body,
+          :plain_body => email.plain_body,
+          :recipients => email.recipients,
+          :from       => email.from,
+          :bcc_sender => email.bcc_sender || false,
+          :check_spam => email.check_spam
+        }
+  
+        if email.attachments.length > 0
+          email.attachments.each do |filename, contents|
+            filename = File.basename(filename)
+            data["attachments[#{filename}]"] = [contents].pack("m")
+          end
         end
-      end
-
-      if email.headers.length > 0
-        email.headers.each { |name, value| data["headers[#{name}]"] = value }
+  
+        if email.headers.length > 0
+          email.headers.each { |name, value| data["headers[#{name}]"] = value }
+        end
       end
 
       Messy.send_api_request('send_email', data, :post)
