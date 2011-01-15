@@ -47,7 +47,11 @@ module Messy
     res = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
     case res
     when Net::HTTPSuccess, Net::HTTPRedirection
-      return ::ActiveSupport::JSON.decode(res.body)
+      begin
+        return ::ActiveSupport::JSON.decode(res.body)
+      rescue => e
+        raise [e, res.body].inspect
+      end
     when Net::HTTPClientError
       raise Messy::InvalidData, res.body if res.code == "422" # unprocessable entity
     end
