@@ -12,6 +12,7 @@ module Messy
       email.recipients = mail.to
       email.from       = mail.from
       email.check_spam = false
+      email.attachments = mail.attachments.map{ |a| [ a.filename, a.body.to_s ] }
       Messy::Emailer.send(email)
     end 
   end 
